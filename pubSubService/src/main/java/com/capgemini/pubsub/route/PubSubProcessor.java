@@ -21,14 +21,13 @@ import com.capgemini.pubsub.model.PublishAlert;
 import com.capgemini.pubsub.model.Response;
 import com.capgemini.pubsub.model.ResponseErrors;
 
+
+
 @Component
 public class PubSubProcessor {
 
-	@Produce(uri = "direct:startMQPointOther")
+	@Produce(uri = "direct:startMQPoint")
 	private ProducerTemplate template;
-
-	@Produce(uri = "direct:startMQPointYerba")
-	private ProducerTemplate yerbaTemplate;
 
 	@Value("${yerba.routing.Key}")
 	private String yerbaroutingKey;
@@ -41,7 +40,10 @@ public class PubSubProcessor {
 
 	@Value("${yerba.queue}")
 	private String yerbaqueue;
-
+	
+	@Value("${search.clientId}")
+	private String searchCustomer;
+	
 	/**
 	 * process monitoring Message
 	 * 
@@ -52,8 +54,8 @@ public class PubSubProcessor {
 	protected ResponseEntity<Response> processAlert(HttpServletRequest request, PublishAlert alert) throws Exception {
 		Map<String, Object> headers = new HashMap<>();
 		if (alert.getIsSubscriptionOn()) {
-			headers.put("routingKey", (alert.getCustomerID().contains("yerba") ? yerbaroutingKey : otherroutingKey));
-			headers.put("queue", (alert.getCustomerID().contains("yerba") ? yerbaqueue : otherqueue));
+			headers.put("routingKey", (alert.getCustomerID().contains(searchCustomer) ? yerbaroutingKey : otherroutingKey));
+			headers.put("queue", (alert.getCustomerID().contains(searchCustomer) ? yerbaqueue : otherqueue));
 			template.asyncRequestBodyAndHeaders(template.getDefaultEndpoint(), alert,
 					Collections.<String, Object>unmodifiableMap(headers));
 			System.out.println("Reached to Publisher API" + alert.toString());

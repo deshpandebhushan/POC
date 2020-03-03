@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class PubSubRouter extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
-		from("direct:startMQPointOther")
+		from("direct:startMQPoint")
 		.routeId("startMQPointOther")
 		.marshal()
 		.json(JsonLibrary.Jackson)
