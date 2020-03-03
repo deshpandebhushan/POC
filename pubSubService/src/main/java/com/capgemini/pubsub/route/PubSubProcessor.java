@@ -62,7 +62,7 @@ public class PubSubProcessor {
 			return new ResponseEntity<Response>(
 					createResponse("Alert Payload Recieved for Publishing", Collections.emptyList()), HttpStatus.ACCEPTED);
 		} else {
-			System.out.println("Now allowed to Publish message Subscription is OFF for " + alert.getCustomerID());
+			System.out.println("Not allowed to Publish message Subscription is OFF for " + alert.getCustomerID());
 			return new ResponseEntity<Response>(createResponse("Now allowed to Publish message.", Collections.emptyList()), HttpStatus.BAD_REQUEST);
 		}
 
