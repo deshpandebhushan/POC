@@ -1,0 +1,73 @@
+{
+	"variables": [],
+	"info": {
+		"name": "POC Collection",
+		"_postman_id": "35c7d970-cf07-7c3d-ab66-ecbb8ebcf4c9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"url": "http://localhost:8080/alert/healthCheck",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Alert",
+			"request": {
+				"url": "http://localhost:8080/alert/createAlert",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerID\": \"itsm.x\",\n  \"location\": \"France Test 1\",\n  \"isSubscriptionOn\": false,\n  \"payload\": {\n    \"priority\": \"high\",\n    \"assetId\": \"test Subscription \",\n    \"description\": \"CPU 99% threshold reached\"\n  }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Publish Alert",
+			"request": {
+				"url": "http://localhost:9090/publishAlert",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerID\": \"yerba\",\n  \"location\": \"France Test 1\",\n  \"isSubscriptionOn\": true,\n  \"payload\": {\n    \"priority\": \"high\",\n    \"assetId\": \"test Subscription \",\n    \"description\": \"CPU 99% threshold reached\"\n  }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check Publisher",
+			"request": {
+				"url": "http://localhost:9090/healthCheck",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
