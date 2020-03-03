@@ -1,30 +1,39 @@
-POC (Camel + Spring Boot + RabbitMQ)
+#Project Name : POC
+#Technology used
+   ï Java 8
+   ï RabbitMQ
+   ï Spring Boot
+   ï Camel
 
-Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
-Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
-RabbitMQ is an open-source message-broker software. The RabbitMQ server program is written in the Erlang programming language.
+#Description :  
+  In this project alert/message will be triggered by monitoring tool and pushed to Alert service. Alert service will accept message into JSON format and send alert/message to publisher and subscriber service(pubSubService). PubSub service will apply business logic and push message on queue.
+  Consumer will consume message and send to DataBase.
+ 
+#RabbitMQ Installation Steps:
+STEP 1: Download Erlang for Windows and RabbitMQ for Windows - https://www.rabbitmq.com/install-windows.html
+STEP 2: Run otp_win64_22.0.exe as Adminstrator
+STEP 3: Run rabbitmq-server-3.7.16.exe as Administrator
+STEP 4: Open Command Prompt and Navigate to %RABBITMQ_HOME%\sbin e.g:> cd "C:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.16\sbin"
+STEP 5: Enable Management Plugin :> rabbitmq_plugins enable rabbitmq_management
+STEP 6: Open Browser and enter "http://localhost:15672"
+STEP 7: Enter default credentails to login.
+		Username: guest
+		Password: guest
+STEP 8: GOTO Windows Services to START/STOP RabbitMQ Service. AMQP Port: 5672
 
-RabbitMQ Setup:
 
-1. Install esl-erlang_22.1_windows_amd64.exe file
-2. Add to system variables and path variables of above file
-3. Install rabbitmq-server-3.8.2.exe file now
-4. Enable rabbitmq management plugin-(USE THIS COMMAND--- rabbitmq-plugins.bat enable rabbitmq_management)
-5. http://localhost:15672 (guest as username and password)
+#Service         - Ports
+Alert Service       -  8080
+pubSub Service      -  9090
+ITSM Proxy Service  -  8081
+AIOPS Proxy Service -  8181
 
-Ports:
 
-Alert Service- 8080
-pubSub Service- 9090
-ITSM Proxy Service- 8081
-AIOPS Proxy Service- 8181
-
-Message Sample:
-
+#Example of input JSON for alert/pubSub service:
 {
 "customerID":"itsm.x",
 "location":"france",
-‚ÄúisSubscriptionOn‚Äù: true
+"isSubscriptionOn": true
 "Payload":{
 "alertPriority":"Urgent",
 "assetId":"toto01",
